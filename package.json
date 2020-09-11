@@ -1,0 +1,21 @@
+{
+  "name": "coffeebot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wmde/coffeebot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wmde/coffeebot/issues"
+  },
+  "homepage": "https://github.com/wmde/coffeebot#readme"
+}
