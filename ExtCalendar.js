@@ -20,7 +20,7 @@ function createCalEvent( gEmail1, gEmail2, startTime, endTime ) {
 }
 
 function findSoonestFreeTime( gEmail1, gEmail2 ) {
-  var now = new Date();
+  var now = new Date((new Date()).toUTCString());
   var response = Calendar.Freebusy.query({
     timeMin: now.toISOString(),
     timeMax: ( new Date(now.getTime() + 120*60000) ).toISOString(),
@@ -31,16 +31,27 @@ function findSoonestFreeTime( gEmail1, gEmail2 ) {
   });
   var busyTimeArray = [].concat(response.calendars[gEmail1].busy, response.calendars[gEmail2].busy)
   console.log(busyTimeArray)
-  for (let step = 0; step < 24; step++) {
+  for (let step = 0; step < 18; step++) {
     var trialStartTime = new Date(now.getTime() + step*5*60000);
     var trialEndTime = new Date(now.getTime() + step*5*60000 + 30*60000);
-    if (!datesHaveAnyOverlap( trialStartTime, busyTimeArray[0].start, trialEndTime, busyTimeArray[0].end )) {
+    var periodFree = true;
+    for ( let busyPeriodIdx = 0; busyPeriodIdx < busyTimeArray.length; busyPeriodIdx++) {
+      if (datesHaveAnyOverlap( trialStartTime, new Date( busyTimeArray[busyPeriodIdx].start ), trialEndTime, new Date (busyTimeArray[busyPeriodIdx].end ) )) {
+      periodFree = false;
+      }
+    }
+    if (periodFree) {
       return {start: trialStartTime, end: trialEndTime}
     }
   }
   return null
 }
 
-function datesHaveAnyOverlap( startOne, startTwo, endOne, endTwo) {
-  return ( !(endTwo <= startOne || startTwo >= endOne))
+function datesHaveAnyOverlap( startTrial, startBusy, endTrial, endBusy) {
+  return (!(endBusy < startTrial || startBusy > endTrial))
+}
+
+function testRun() {
+  var time = findSoonestFreeTime( 'thomas.arrow_ext@wikimedia.de', 'adam.shorland@wikimedia.de' )
+  console.log(time)
 }

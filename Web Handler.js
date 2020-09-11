@@ -33,6 +33,9 @@ function doPost(e){
     case '!cleanup':
       cmdCleanup()
       break;
+    case '!soon':
+      cmdSoon(mmUser, triggerWords[1])
+      break;
     case '!help':
       cmdHelp()
       break;
