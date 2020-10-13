@@ -11,7 +11,7 @@ function cmdRegister( mmUser, gEmail ) {
 
 function cmdCoffee( mmUser, requiredTimeSlot ) {
   if(!isMmUserRegistered(mmUser)) {
-    sendToMattermost("You (" + mmUser + ') are not registered.")
+    sendToMattermost("You (" + mmUser + ') are not registered.')
     return;
   }
   
