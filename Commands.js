@@ -42,6 +42,24 @@ function cmdSoon( mmUser, otherUser ) {
   sendToMattermost(mmUser + ", you have created a 30-minute coffee call with " + otherUser + "starting at "+ time.start)
 }
 
+function cmdSoon( mmUser, otherUser ) {
+  if(!isMmUserRegistered(mmUser)) {
+    sendToMattermost("You (" + mmUser + ') are not registered')
+    return;
+  }
+  if(!isMmUserRegistered(otherUser)) {
+    sendToMattermost("The user you want to coffee with (" + otherUser + ') is not registered')
+    return;
+  }
+  var time = findSoonestFreeTime(getEmailFromMmUser(mmUser), getEmailFromMmUser(otherUser))
+  if (!time) {
+    sendToMattermost(mmUser + ", you have no overlapping free time with" + otherUser + "in the next two hours")
+  } else {
+    var event = createCalEvent(getEmailFromMmUser(mmUser), getEmailFromMmUser(otherUser), time.start, time.end)
+  }
+  sendToMattermost(mmUser + ", you have created a coffee call for 30 mins with " + otherUser + "starting at "+ time.start)
+}
+
 function cmdNow( mmUser, otherUser ) {
   if(!isMmUserRegistered(mmUser)) {
     sendToMattermost("You (" + mmUser + ') are not registered.')
