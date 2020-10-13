@@ -57,7 +57,7 @@ function cmdSoon( mmUser, otherUser ) {
   } else {
     var event = createCalEvent(getEmailFromMmUser(mmUser), getEmailFromMmUser(otherUser), time.start, time.end)
   }
-  sendToMattermost(mmUser + ", you have created a coffee call for 30 mins with " + otherUser + "starting at "+ time.start)
+  sendToMattermost("@" + mmUser + ", you have created a coffee call for 30 mins with @" + otherUser + " starting at "+ time.start)
 }
 
 function cmdNow( mmUser, otherUser ) {
@@ -72,7 +72,7 @@ function cmdNow( mmUser, otherUser ) {
   
   var event = createCalEventNow(getEmailFromMmUser(mmUser), getEmailFromMmUser(otherUser))
   
-  sendToMattermost(mmUser + ", you have created a 30-minute coffee call with " + otherUser + " ( TBA link to call)")
+  sendToMattermost("@" + mmUser + ", you have created a 30-minute coffee call with @" + otherUser + " ( TBA link to call)")
   //sendToMattermost(mmUser + ", you have created a coffee call for 30 mins with " + otherUser + " (" + event.getLocation() + ")")
 }
 
